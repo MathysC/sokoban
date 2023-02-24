@@ -4,3 +4,6 @@
 /.classpath
 /.idea/
 /.vscode/
+/test_files/
+/pddl4S/personals/
+pddl4j-4.0.0.jar
