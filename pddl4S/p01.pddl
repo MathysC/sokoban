@@ -1,5 +1,6 @@
 ; #@   $.#
-; A five 
+; A five position problem in one line with one box
+; next to the destination
 
 (define (problem SOK01)
 (:domain SOKOBAN)
