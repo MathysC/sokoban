@@ -23,7 +23,7 @@
     (:constants
         g - guard ; The guard who can push the boxes.
         r l u d - direction ; the four directions.
-    )
+        )
     (:predicates
         (path ?a ?b - position ?d - direction) ; The interactive objects can go from 'a' to 'b' in direction 'b'
         (on ?i - interactive ?p - position); The interactive object 'i' is on position 'p'
@@ -31,7 +31,10 @@
         (empty ?p - position) ; There is nothing on position 'p'
     )
 
-    (:action move ; The guard 'g' moves in one direction 'd'
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;; Interactive methods
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    (:action move ; The guard 'g' moves in one direction 'd' from 'a' to 'b'
         :parameters (?a ?b - position ?d - direction)
         :precondition (and
             (on g ?a) ; guard on position 'a'
@@ -46,31 +49,30 @@
         )
     )
 
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;; Interactive methods
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;
     (:action push ; The guard 'g' pushes the box 'box' in one direction 'd'
+        ; The guard 'g' goes from 'a' to 'b'
+        ; The box 'box' goes from 'b' to 'c'
         :parameters (?a ?b ?c - position ?box - box ?d - direction)
         :precondition (and
-            (on g ?a) ; guard on position 'a'
-            (withbox ?b) ; box on position 'b'
+            (on g ?a) ; guard is on position 'a'
+            (withbox ?b) ; box is on position 'b'
             (empty ?c) ; position next to the box is empty
             (path ?a ?b ?d) ; guard can go on box’s position 'b'
             (path ?b ?c ?d) ; box can go on empty position 'c'
         )
         :effect (and
             ; Move the guard
-            (on g ?b) ; guard on 'b'
-            (not (on g ?a)) ; guard not on 'a' anymore
+            (not (on g ?a)) ; guard is not on 'a' anymore
             (empty ?a) ; -----------------------------
+            (on g ?b) ; guard on 'b'
             ; (not (empty ?b)); commented line because 'b' won’t be empty, first there is the box then there is the guard
 
-            ; TODO: move the box
-            (not (on ?box ?b)) ; box isn’t on position 'b'
+            ; move the box
+            (not (on ?box ?b)) ; box is not on position 'b'
             (not (withbox ?b)) ; --------------------------
-            (on ?box ?c)
-            (not (empty ?c))
-            (withbox ?c) ; box is on position 'c'
+            (on ?box ?c) ; box is on position 'c'
+            (not (empty ?c)) ; ------------------
+            (withbox ?c) ; ----------------------
         )
     )
 
