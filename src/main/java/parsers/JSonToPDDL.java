@@ -113,6 +113,7 @@ public void createObjects() throws IOException{
 			destNumber++;
 			boxNumber++;
 			cell++;
+			break;
 		case '#':
 			cell++;
 			break;
@@ -126,6 +127,21 @@ public void createObjects() throws IOException{
 		}
 		
 	}
+	writer.append(")\n");
+}
+
+public void createInit() throws IOException {
+	writer.append("(:init\n");
+	String cell;
+	String toCompare;
+	for (int i=0;i<floorPlan.size();i++) {
+		cell=floorPlan.get(i);
+		if(boxes.contains(cell)) {
+			writer.append("(on b"+boxes.size()+cell+")\n(whitbox "+cell+")\n");
+			boxes.remove(cell);
+		}
+	}
+	writer.append(")\n");
 }
 
 public void createPDDL() {
