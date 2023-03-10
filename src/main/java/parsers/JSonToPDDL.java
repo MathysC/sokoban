@@ -1,6 +1,8 @@
 package parsers;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -36,7 +38,11 @@ public JSonToPDDL(String pathToFile) {
 		mapModel = temp.get("testIn").toString();
 		isTest= (temp.get("isTest").equals("true"));
 		isValidator = (temp.get("isValidator").equals("true"));
-		writer =new FileWriter("gf"+mapName+".pddl");
+		File file= new File(mapName);
+		file.createNewFile();
+		writer =new FileWriter(file,true);
+		
+		
 	} catch (IOException | ParseException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -45,27 +51,31 @@ public JSonToPDDL(String pathToFile) {
 }
 
 public void createHeader() throws IOException {
+	FileOutputStream fileout= new FileOutputStream("gf.pddl");
+	
 	ArrayList<String> map = new ArrayList<String>(Arrays.asList(mapModel.split("\n")));
 	writer.append("(define ( problem "+mapName + " )");
 	writer.append("(:domain SOKOBAN)\n");
 	writer.append("(:objects\n");
+	writer.flush();
 }
 public void createObjects() throws IOException{
 	//code qui fait une arraylist de string nommé map faut changer le code pour iterer dessus
 	ArrayList<String> map = new ArrayList<String>(Arrays.asList(mapModel.split("\n")));
 
-	boolean betweenWalls=false;
+	boolean betweenWalls=true;
 	int row=1;
 	int cell=1;
 	int destNumber=1;
 	int boxNumber=1;
 	char[] arrayMap=new char[mapModel.length()];
 	mapModel.getChars(0, mapModel.length(), arrayMap, 0);
-	for (int i =0 ; i<mapModel.length(); i++) {
-		if(arrayMap[i]=='#' && arrayMap[i-1]=='\n') 
-			betweenWalls=!betweenWalls;
+	for (int i =0 ; i<map.size(); i++) {
+		for(int j=0;j<map.get(i).length();j++) {
+//		if(map.get(i).charAt(j)=='#' && (j==0 || j == map.get(i).length()-1)) 
+//			betweenWalls=!betweenWalls;
 		if (betweenWalls) {
-		switch (arrayMap[i])
+		switch (map.get(i).charAt(j))
 		{
 		case ' ':
 			writer.append("f"+row+cell+" - floor\n");
@@ -98,7 +108,7 @@ public void createObjects() throws IOException{
 		case '$':
 			writer.append("f"+row+cell+" - floor\n");
 			floorPlan.add("f"+row+cell);
-			writer.append("b"+boxNumber+" - box");
+			writer.append("b"+boxNumber+" - box\n");
 			boxes.add("f"+row+cell);
 			boxNumber++;
 			cell++;
@@ -106,7 +116,7 @@ public void createObjects() throws IOException{
 		case '*':
 			writer.append("f"+row+cell+" - floor\n");
 			floorPlan.add("f"+row+cell);
-			writer.append("b"+boxNumber+" - box");
+			writer.append("b"+boxNumber+" - box\n");
 			boxes.add("f"+row+cell);
 			goal.add("f"+row+cell+" ");
 			writer.append("Dest"+destNumber+" - destination\n");
@@ -125,6 +135,7 @@ public void createObjects() throws IOException{
 			break;
 		}
 		}
+		}
 		
 	}
 	writer.append(")\n");
@@ -137,7 +148,7 @@ public void createInit() throws IOException {
 	for (int i=0;i<floorPlan.size();i++) {
 		cell=floorPlan.get(i);
 		if(boxes.contains(cell)) {
-			writer.append("(on b"+boxes.size()+cell+")\n(whitbox "+cell+")\n");
+			writer.append("(on b"+boxes.size()+cell+")\n( whitebox "+cell+")\n");
 			boxes.remove(cell);
 		}
 	}
@@ -147,6 +158,9 @@ public void createInit() throws IOException {
 public void createPDDL() {
 	try {
 		createHeader();
+		createObjects();
+		createInit();
+		writer.flush();
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -156,5 +170,12 @@ public void createPDDL() {
 }
 public static void main(String[] args) {
 	JSonToPDDL jst= new JSonToPDDL("test1.json");
+	jst.createPDDL();
+	try {
+		jst.writer.write(jst.mapModel);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 }
 }
