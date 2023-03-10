@@ -85,10 +85,9 @@ public void createObjects() throws IOException{
 			cell++;
 			break;
 		case '.':
-			writer.append("f"+row+cell+" - floor\n");
+			writer.append("f"+row+cell+" - destination\n");
 			floorPlan.add("f"+row+cell);
 			goal.add("f"+row+cell+" ");
-			writer.append("Dest"+destNumber+" - destination\n");
 			destNumber++;
 			cell++;
 			break;
@@ -99,11 +98,10 @@ public void createObjects() throws IOException{
 			cell++;
 			break;
 		case '+':
-			writer.append("f"+row+cell+" - floor\n");
+			writer.append("f"+row+cell+" - destination\n");
 			guardPosition="f"+row+cell;
 			floorPlan.add("f"+row+cell);
 			goal.add("f"+row+cell+" ");
-			writer.append("Dest"+destNumber+" - destination\n");
 			destNumber++;
 			cell++;
 			break;
@@ -116,12 +114,11 @@ public void createObjects() throws IOException{
 			cell++;
 			break;
 		case '*':
-			writer.append("f"+row+cell+" - floor\n");
+			writer.append("f"+row+cell+" - destination\n");
 			floorPlan.add("f"+row+cell);
 			writer.append("b"+boxNumber+" - box\n");
 			boxes.add("f"+row+cell);
 			goal.add("f"+row+cell+" ");
-			writer.append("Dest"+destNumber+" - destination\n");
 			destNumber++;
 			boxNumber++;
 			cell++;
@@ -152,7 +149,7 @@ public void createInit() throws IOException {
 		if(!boxes.contains(cell)&&!goal.contains(cell) && !guardPosition.equals(cell))
 			writer.append("(empty "+cell+")\n");
 		if(guardPosition.equals(cell))
-			writer.append("on g "+cell);
+			writer.append("(on g "+cell+")\n");
 		int right=Integer.parseInt(cell.substring(1));
 		int down=right+10;
 		right++;
