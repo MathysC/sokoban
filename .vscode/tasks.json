@@ -2,11 +2,28 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Planner",
+			"label": "Planner with args",
 			"group": "build",
 			"type": "shell",
 			"command": "java",
-			"args": ["-cp", 
+			"args": [
+			"-Xms${input:Xms}",										// Initial memory allocation
+			"-Xmx${input:Xmx}",										// Maximum memory allocation
+			"-cp", 													// classpath
+			"pddl4j-4.0.0.jar",										// pddl4j jar
+			"fr.uga.pddl4j.planners.statespace.${input:planner}",	// Planner
+			"--timeout=${input:timeout}",							// Timeout
+			"pddl4S/domainSokoban.pddl",							// Domain
+			"pddl4S/${input:problem}.pddl"							// Problem
+			]
+		},
+		{
+			"label": "Simple Planner",
+			"group": "build",
+			"type": "shell",
+			"command": "java",
+			"args": [
+			"-cp", 
 			"pddl4j-4.0.0.jar",										// pddl4j jar
 			"fr.uga.pddl4j.planners.statespace.${input:planner}",	// Planner
 			"pddl4S/domainSokoban.pddl",							// Domain
@@ -15,6 +32,18 @@
 		}
 	],
 	"inputs": [
+		{
+			"id": "Xms",
+            "description": "Initial memory allocation",
+			"default": "512m",
+			"type": "promptString"
+		},
+		{
+			"id": "Xmx",
+            "description": "Maximum memory allocation",
+			"default": "512m",
+			"type": "promptString"
+		},
 		{
             "id": "planner",
             "description": "planner name:",
@@ -27,10 +56,17 @@
 			]
         },
 		{
+			"id": "timeout",
+			"description": "set the time out of the planner",
+			"default": "600",
+			"type": "promptString"
+		},
+		{
             "id": "problem",
             "description": "Problem file name:",
             "default": "p01",
             "type": "promptString"
         },
+
     ]
 }
