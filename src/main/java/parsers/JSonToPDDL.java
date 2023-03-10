@@ -71,6 +71,8 @@ public void createObjects() throws IOException{
 	char[] arrayMap=new char[mapModel.length()];
 	mapModel.getChars(0, mapModel.length(), arrayMap, 0);
 	for (int i =0 ; i<map.size(); i++) {
+		row++;
+		cell=1;
 		for(int j=0;j<map.get(i).length();j++) {
 //		if(map.get(i).charAt(j)=='#' && (j==0 || j == map.get(i).length()-1)) 
 //			betweenWalls=!betweenWalls;
@@ -127,10 +129,6 @@ public void createObjects() throws IOException{
 		case '#':
 			cell++;
 			break;
-		case '\n':
-			row++;
-			cell=1;
-			break;
 		default:
 			break;
 		}
@@ -148,7 +146,7 @@ public void createInit() throws IOException {
 	for (int i=0;i<floorPlan.size();i++) {
 		cell=floorPlan.get(i);
 		if(boxes.contains(cell)) {
-			writer.append("(on b"+boxes.size()+cell+")\n( whitebox "+cell+")\n");
+			writer.append("(on b"+boxes.size()+" "+cell+")\n(whitebox "+cell+")\n");
 			boxes.remove(cell);
 		}
 	}
