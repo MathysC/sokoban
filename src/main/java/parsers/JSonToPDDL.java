@@ -55,31 +55,69 @@ public void createObjects() throws IOException{
 	int row=1;
 	int cell=1;
 	int destNumber=1;
+	int boxNumber=1;
 	char[] arrayMap=new char[mapModel.length()];
 	mapModel.getChars(0, mapModel.length(), arrayMap, 0);
 	for (int i =0 ; i<mapModel.length(); i++) {
-		if(arrayMap[i]=='#') 
+		if(arrayMap[i]=='#' && arrayMap[i-1]=='\n') 
 			betweenWalls=!betweenWalls;
 		if (betweenWalls) {
 		switch (arrayMap[i])
 		{
 		case ' ':
-			writer.append("f"+row+cell+"- floor\n");
+			writer.append("f"+row+cell+" - floor\n");
 			floorPlan.add("f"+row+cell);
 			cell++;
 			break;
 		case '.':
-			writer.append("f"+row+cell+"- floor\n");
+			writer.append("f"+row+cell+" - floor\n");
 			floorPlan.add("f"+row+cell);
 			goal.add("f"+row+cell+" ");
-			writer.append("Dest"+destNumber+"- destination\n");
+			writer.append("Dest"+destNumber+" - destination\n");
 			destNumber++;
 			cell++;
 			break;
 		case '@':
-			writer.append("f"+row+cell+"- floor\n");
+			writer.append("f"+row+cell+" - floor\n");
+			floorPlan.add("f"+row+cell);
 			guardPosition="f"+row+cell;
 			cell++;
+			break;
+		case '+':
+			writer.append("f"+row+cell+" - floor\n");
+			guardPosition="f"+row+cell;
+			floorPlan.add("f"+row+cell);
+			goal.add("f"+row+cell+" ");
+			writer.append("Dest"+destNumber+" - destination\n");
+			destNumber++;
+			cell++;
+			break;
+		case '$':
+			writer.append("f"+row+cell+" - floor\n");
+			floorPlan.add("f"+row+cell);
+			writer.append("b"+boxNumber+" - box");
+			boxes.add("f"+row+cell);
+			boxNumber++;
+			cell++;
+			break;
+		case '*':
+			writer.append("f"+row+cell+" - floor\n");
+			floorPlan.add("f"+row+cell);
+			writer.append("b"+boxNumber+" - box");
+			boxes.add("f"+row+cell);
+			goal.add("f"+row+cell+" ");
+			writer.append("Dest"+destNumber+" - destination\n");
+			destNumber++;
+			boxNumber++;
+			cell++;
+		case '#':
+			cell++;
+			break;
+		case '\n':
+			row++;
+			cell=1;
+			break;
+		default:
 			break;
 		}
 		}
