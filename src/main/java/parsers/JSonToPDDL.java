@@ -146,11 +146,33 @@ public void createInit() throws IOException {
 	for (int i=0;i<floorPlan.size();i++) {
 		cell=floorPlan.get(i);
 		if(boxes.contains(cell)) {
-			writer.append("(on b"+boxes.size()+" "+cell+")\n(whitebox "+cell+")\n");
+			writer.append("(on b"+boxes.size()+" "+cell+")\n(withbox "+cell+")\n");
 			boxes.remove(cell);
 		}
+		if(!boxes.contains(cell)&&!goal.contains(cell) && !guardPosition.equals(cell))
+			writer.append("(empty "+cell+")\n");
+		if(guardPosition.equals(cell))
+			writer.append("on g "+cell);
+		int right=Integer.parseInt(cell.substring(1));
+		int down=right+10;
+		right++;
+		toCompare="f"+right;
+		if(floorPlan.contains(toCompare))
+			writer.append("(path "+cell+" "+toCompare+" r)\n");
+		toCompare="f"+down;
+		if(floorPlan.contains(toCompare))
+			writer.append("(path "+cell+" "+toCompare+" d)\n");
+		
 	}
 	writer.append(")\n");
+}
+
+public void createGoal() throws IOException{
+	writer.append("  (:goal (and\n");
+	for(String d : goal) {
+		writer.append("(withbox "+d+")\n");
+	}
+	writer.append("\n    ))\n)");
 }
 
 public void createPDDL() {
@@ -158,6 +180,7 @@ public void createPDDL() {
 		createHeader();
 		createObjects();
 		createInit();
+		createGoal();
 		writer.flush();
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
@@ -169,11 +192,6 @@ public void createPDDL() {
 public static void main(String[] args) {
 	JSonToPDDL jst= new JSonToPDDL("test1.json");
 	jst.createPDDL();
-	try {
-		jst.writer.write(jst.mapModel);
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	
 }
 }
