@@ -51,6 +51,9 @@ public void createHeader() throws IOException {
 	writer.append("(:objects\n");
 }
 public void createObjects() throws IOException{
+	//code qui fait une arraylist de string nommé map faut changer le code pour iterer dessus
+	ArrayList<String> map = new ArrayList<String>(Arrays.asList(mapModel.split("\n")));
+
 	boolean betweenWalls=false;
 	int row=1;
 	int cell=1;
