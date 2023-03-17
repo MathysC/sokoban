@@ -25,7 +25,7 @@ private ArrayList<String> goal;
 private ArrayList<String> boxes;
 private String guardPosition;
 private final static String path="../../../../config/";
-
+private final static String outPath="/ppdl4S/";
 public JSonToPDDL(String pathToFile) {
 	parser = new JSONParser();
 	
@@ -39,7 +39,7 @@ public JSonToPDDL(String pathToFile) {
 		mapModel = temp.get("testIn").toString();
 		isTest= (temp.get("isTest").equals("true"));
 		isValidator = (temp.get("isValidator").equals("true"));
-		File file= new File(mapName+".pddl");
+		File file= new File(outPath+mapName+".pddl");
 		file.createNewFile();
 		writer =new FileWriter(file,true);
 		
