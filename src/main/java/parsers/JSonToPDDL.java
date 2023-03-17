@@ -34,11 +34,11 @@ public JSonToPDDL(String pathToFile) {
 		floorPlan= new ArrayList<String> ();
 		goal=new ArrayList<String>();
 		boxes=new ArrayList<String>();
-		mapName= temp.get("title").toString();
+		mapName= pathToFile;
 		mapModel = temp.get("testIn").toString();
 		isTest= (temp.get("isTest").equals("true"));
 		isValidator = (temp.get("isValidator").equals("true"));
-		File file= new File(mapName);
+		File file= new File(mapName+".pddl");
 		file.createNewFile();
 		writer =new FileWriter(file,true);
 		
@@ -51,10 +51,10 @@ public JSonToPDDL(String pathToFile) {
 }
 
 public void createHeader() throws IOException {
-	FileOutputStream fileout= new FileOutputStream("gf.pddl");
+	//FileOutputStream fileout= new FileOutputStream("gf.pddl");
 	
 	ArrayList<String> map = new ArrayList<String>(Arrays.asList(mapModel.split("\n")));
-	writer.append("(define ( problem "+mapName + " )");
+	writer.append("(define (problem "+mapName + ")");
 	writer.append("(:domain SOKOBAN)\n");
 	writer.append("(:objects\n");
 	writer.flush();
@@ -156,9 +156,11 @@ public void createInit() throws IOException {
 		toCompare="f"+right;
 		if(floorPlan.contains(toCompare))
 			writer.append("(path "+cell+" "+toCompare+" r)\n");
+			writer.append("(path "+toCompare+" "+cell+" l)\n");
 		toCompare="f"+down;
 		if(floorPlan.contains(toCompare))
 			writer.append("(path "+cell+" "+toCompare+" d)\n");
+			writer.append("(path "+toCompare+" "+cell+" u)\n");
 		
 	}
 	writer.append(")\n");
@@ -187,7 +189,7 @@ public void createPDDL() {
 	
 }
 public static void main(String[] args) {
-	JSonToPDDL jst= new JSonToPDDL("test1.json");
+	JSonToPDDL jst= new JSonToPDDL("../../../../config/test10.json");
 	jst.createPDDL();
 	
 }
