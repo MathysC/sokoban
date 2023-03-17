@@ -155,13 +155,15 @@ public void createInit() throws IOException {
 		int down=right+10;
 		right++;
 		toCompare="f"+right;
-		if(floorPlan.contains(toCompare))
+		if(floorPlan.contains(toCompare)) {
 			writer.append("(path "+cell+" "+toCompare+" r)\n");
 			writer.append("(path "+toCompare+" "+cell+" l)\n");
+		}
 		toCompare="f"+down;
-		if(floorPlan.contains(toCompare))
+		if(floorPlan.contains(toCompare)) {
 			writer.append("(path "+cell+" "+toCompare+" d)\n");
 			writer.append("(path "+toCompare+" "+cell+" u)\n");
+		}
 		
 	}
 	writer.append(")\n");
