@@ -24,12 +24,13 @@ private ArrayList<String> floorPlan;
 private ArrayList<String> goal;
 private ArrayList<String> boxes;
 private String guardPosition;
+private final static String path="../../../../config/";
 
 public JSonToPDDL(String pathToFile) {
 	parser = new JSONParser();
 	
 	try {
-		reader = new FileReader(pathToFile);
+		reader = new FileReader(path+pathToFile+".json");
 		JSONObject temp = (JSONObject ) parser.parse(reader);
 		floorPlan= new ArrayList<String> ();
 		goal=new ArrayList<String>();
@@ -189,7 +190,7 @@ public void createPDDL() {
 	
 }
 public static void main(String[] args) {
-	JSonToPDDL jst= new JSonToPDDL("../../../../config/test10.json");
+	JSonToPDDL jst= new JSonToPDDL("test1");
 	jst.createPDDL();
 	
 }
