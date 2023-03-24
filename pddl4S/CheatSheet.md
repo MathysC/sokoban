@@ -1,6 +1,6 @@
 # URL Link
 
-```sh
+```bash
 mvn install:install-file \
    -Dfile=<path-to-file-pddl4j-4.0.0.jar> \
    -DgroupId=fr.uga \
@@ -8,12 +8,23 @@ mvn install:install-file \
    -Dversion=4.0.0 \
    -Dpackaging=jar \
    -DgeneratePom=true
+```  
+
+```bash
+mvn install:install-file \
+   -Dfile=<path-to-file-sokobanParser.jar> \
+   -DgroupId=fr.uga.pddl4j.sokoban \
+   -DartifactId=parser \
+   -Dversion=1.0 \
+   -Dpackaging=jar \
+   -DgeneratePom=true
  ```  
 
- ```sh
+
+ ```bash
   mvn compile
  ```
-```
+
 
 ```java
 java --add-opens java.base/java.lang=ALL-UNNAMED \

@@ -45,6 +45,11 @@
           <version>4.0.0</version>
         </dependency>
 
+        <dependency>
+          <groupId>fr.uga.pddl4j.sokoban</groupId>
+          <artifactId>parser</artifactId>
+          <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

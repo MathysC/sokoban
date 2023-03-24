@@ -2,6 +2,19 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "Simple Planner",
+			"group": "build",
+			"type": "shell",
+			"command": "java",
+			"args": [
+			"-cp", 
+			"pddl4j-4.0.0.jar",										// pddl4j jar
+			"fr.uga.pddl4j.planners.statespace.${input:planner}",	// Planner
+			"pddl4S/domainSokoban.pddl",							// Domain
+			"pddl4S/${input:problem}.pddl"							// Problem
+			]
+		},
+		{
 			"label": "Planner with args",
 			"group": "build",
 			"type": "shell",
@@ -18,18 +31,38 @@
 			]
 		},
 		{
-			"label": "Simple Planner",
+			"label": "Planner with args saved",
 			"group": "build",
 			"type": "shell",
 			"command": "java",
 			"args": [
-			"-cp", 
+			"-Xms${input:Xms}",										// Initial memory allocation
+			"-Xmx${input:Xms}",										// Maximum memory allocation
+			"-cp", 													// classpath
 			"pddl4j-4.0.0.jar",										// pddl4j jar
 			"fr.uga.pddl4j.planners.statespace.${input:planner}",	// Planner
+			"--timeout=600",										// Timeout
 			"pddl4S/domainSokoban.pddl",							// Domain
-			"pddl4S/${input:problem}.pddl"							// Problem
+			"pddl4S/${input:problem}.pddl",							// Problem
 			]
-		}
+		},
+		{
+			"label": "Planner with plan in out.txt",
+			"group": "build",
+			"type": "shell",
+			"command": "java",
+			"args": [
+			"-Xms${input:Xms}",										// Initial memory allocation
+			"-Xmx${input:Xms}",										// Maximum memory allocation
+			"-cp", 													// classpath
+			"pddl4j-4.0.0.jar",										// pddl4j jar
+			"fr.uga.pddl4j.planners.statespace.${input:planner}",	// Planner
+			"--timeout=600",										// Timeout
+			"pddl4S/domainSokoban.pddl",							// Domain
+			"pddl4S/${input:problem}.pddl",							// Problem
+			">", "pddl4S/out.txt"									// Output File
+			]
+		},
 	],
 	"inputs": [
 		{
