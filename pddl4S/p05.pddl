@@ -36,6 +36,19 @@
         (path f73 f74 r)
         (path f74 f75 r)
 
+        ; path to left
+        (path f25 f24 l)
+        (path d35 f34 l)
+        (path f43 f42 l)
+        (path d44 f43 l)
+        (path f45 d44 l)
+        (path f55 f54 l)
+        (path f63 f62 l)
+        (path d64 f63 l)
+        (path f65 d64 l)
+        (path f74 f73 l)
+        (path f75 f74 l)
+
         ; path to down
         (path f24 f34 d)
         (path f25 d35 d)
@@ -50,6 +63,22 @@
         (path f63 f73 d)
         (path d64 f74 d)
         (path f65 f75 d)
+
+        ; path to up
+        (path f34 f24 u)
+        (path d35 f25 u)
+        (path d44 f34 u)
+        (path f45 d35 u)
+        (path f52 f42 u)
+        (path f54 d44 u)
+        (path f55 f45 u)
+        (path f62 f52 u)
+        (path d64 f54 u)
+        (path f65 f55 u)
+        (path f73 f63 u)
+        (path f74 d64 u)
+        (path f75 f65 u)
+
         ; empty
         (empty f24)
         (empty f25)

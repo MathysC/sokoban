@@ -29,6 +29,18 @@
         (path f33 f34 r)
         (path f34 dest r)
 
+        ; path to left
+        (path f12 f11 l)
+        (path f13 f12 l)
+        (path f14 f13 l)
+        (path f15 f14 l)
+        (path f22 f21 l)
+        (path f23 f22 l)
+        (path f32 f31 l)
+        (path f33 f32 l)
+        (path f34 f33 l)
+        (path dest f34 l)
+
         ; path to down
         (path f11 f21 d)
         (path f12 f22 d)
@@ -39,6 +51,16 @@
         (path f23 f33 d)
         (path f25 dest d)
 
+        ; path to up
+        (path f21 f11 u)
+        (path f22 f12 u)
+        (path f23 f13 u)
+        (path f25 f15 u)
+        (path f31 f21 u)
+        (path f32 f22 u)
+        (path f33 f23 u)
+        (path dest f25 u)
+        
         ; empty
         (empty f11)
         (empty f12)

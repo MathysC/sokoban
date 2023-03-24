@@ -79,43 +79,43 @@
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; Reverse methods
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    (:action reverse_rl ; reverse right to left
-        :parameters (?a ?b - position)
-        :precondition (and
-            (path ?a ?b r)
-        )
-        :effect (and
-            (path ?b ?a l)
-        )
-    )
+    ; (:action reverse_rl ; reverse right to left
+    ;     :parameters (?a ?b - position)
+    ;     :precondition (and
+    ;         (path ?a ?b r)
+    ;     )
+    ;     :effect (and
+    ;         (path ?b ?a l)
+    ;     )
+    ; )
 
-    (:action reverse_lr ; reverse left to right
-        :parameters (?a ?b - position)
-        :precondition (and
-            (path ?a ?b l)
-        )
-        :effect (and
-            (path ?b ?a r)
-        )
-    )
+    ; (:action reverse_lr ; reverse left to right
+    ;     :parameters (?a ?b - position)
+    ;     :precondition (and
+    ;         (path ?a ?b l)
+    ;     )
+    ;     :effect (and
+    ;         (path ?b ?a r)
+    ;     )
+    ; )
 
-    (:action reverse_ud ; reverse up to down
-        :parameters (?a ?b - position)
-        :precondition (and
-            (path ?a ?b u)
-        )
-        :effect (and
-            (path ?b ?a d)
-        )
-    )
+    ; (:action reverse_ud ; reverse up to down
+    ;     :parameters (?a ?b - position)
+    ;     :precondition (and
+    ;         (path ?a ?b u)
+    ;     )
+    ;     :effect (and
+    ;         (path ?b ?a d)
+    ;     )
+    ; )
 
-    (:action reverse_du ; reverse down to up
-        :parameters (?a ?b - position)
-        :precondition (and
-            (path ?a ?b d)
-        )
-        :effect (and
-            (path ?b ?a u)
-        )
-    )
+    ; (:action reverse_du ; reverse down to up
+    ;     :parameters (?a ?b - position)
+    ;     :precondition (and
+    ;         (path ?a ?b d)
+    ;     )
+    ;     :effect (and
+    ;         (path ?b ?a u)
+    ;     )
+    ; )
 )

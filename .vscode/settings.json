@@ -10,7 +10,7 @@
         "config/stub.txt": true,
         "target/" : true,
         "test_files": true,
-        "pom.xml": true,
+        "pom.xml": false,
         "pddl4j-4.0.0.jar": true,
     }
 }

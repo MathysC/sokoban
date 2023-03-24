@@ -15,23 +15,6 @@
     )
 
     (:init
-        (empty f1)
-        (empty f2)
-        (empty f3)
-        (empty f4)
-        (empty f5)
-        (on g f6)
-        (empty f7)
-        (empty f8)
-        (empty f9)
-        (on b f10)
-        (withbox f10)
-        (empty f11)
-        (empty f12)
-        (empty f13)
-        (empty f14)
-        (empty dest)
-
         ; path to right
         (path f1 f2 r)
         (path f2 f3 r)
@@ -46,6 +29,20 @@
         (path f13 f14 r)
         (path f14 dest r)
 
+        ; path to left
+        (path f2 f1 l)
+        (path f3 f2 l)
+        (path f4 f3 l)
+        (path f5 f4 l)
+        (path f7 f6 l)
+        (path f8 f7 l)
+        (path f9 f8 l)
+        (path f10 f9 l)
+        (path f12 f11 l)
+        (path f13 f12 l)
+        (path f14 f13 l)
+        (path dest f14 l)
+
         ; path to down
         (path f1 f6 d)
         (path f2 f7 d)
@@ -58,10 +55,44 @@
         (path f9 f14 d)
         (path f10 dest d)
 
+        ; path to up
+        (path f6 f1 u)
+        (path f7 f2 u)
+        (path f8 f3 u)
+        (path f9 f4 u)
+        (path f10 f5 u)
+        (path f11 f6 u)
+        (path f12 f7 u)
+        (path f13 f8 u)
+        (path f14 f9 u)
+        (path dest f10 u)
+
+        ; empty
+        (empty f1)
+        (empty f2)
+        (empty f3)
+        (empty f4)
+        (empty f5)
+        (empty f7)
+        (empty f8)
+        (empty f9)
+
+        (empty f11)
+        (empty f12)
+        (empty f13)
+        (empty f14)
+        (empty dest)
+
+        ; box
+        (on b f10)
+        (withbox f10)
+
+        ; guard
+        (on g f6)
+
     )
 
-    (:goal
-        (and
+    (:goal(and
             (withbox dest)
         )
     )
